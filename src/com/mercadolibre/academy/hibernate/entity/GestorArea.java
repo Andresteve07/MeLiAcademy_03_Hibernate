@@ -13,11 +13,11 @@ public class GestorArea {
 	public int insertarArea(String nombre) {
 		Session session = fabrica.openSession();
 		Transaction transaction = null;
-		int idEmpleado = 0;
+		int idArea = 0;
 		try {
 			transaction = session.beginTransaction();
 			Area area = new Area(nombre);
-			idArea = (int) session.save(empleado);
+			idArea = (int) session.save(area);
 			transaction.commit();
 		} catch (HibernateException hibernateException) {
 			if (transaction != null) {
@@ -27,18 +27,18 @@ public class GestorArea {
 		} finally {
 			session.close();
 		}
-		return idEmpleado;
+		return idArea;
 	}
 
-	public void listarEmpleados() {
+	public void listarAreas() {
 		Session session = fabrica.openSession();
 		Transaction transaction = null;//NO ES NECESARIA->LEER DOCS!!
 		try {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Empleado> empleados = session.createQuery("FROM Empleado").list();
-			for (Empleado empleado : empleados) {
-				System.out.println(empleado.toString());
+			List<Area> areas = session.createQuery("FROM Area").list();
+			for (Area area : areas) {
+				System.out.println(area.toString());
 			}
 			transaction.commit();
 		} catch (HibernateException hibernateException) {
@@ -51,16 +51,14 @@ public class GestorArea {
 		}
 	}
 
-	public void actualizarEmpleado(int idEmpleado, String dni, String nombre, String apellido) {
+	public void actualizarArea(int idArea, String nombre) {
 		Session session = fabrica.openSession();
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			Empleado empleado = (Empleado) session.get(Empleado.class, idEmpleado);
-			empleado.setDni(dni);
-			empleado.setNombre(nombre);
-			empleado.setApellido(apellido);
-			session.update(empleado);
+			Area area = (Area) session.get(Area.class, idArea);
+			area.setNombre(nombre);
+			session.update(area);
 			transaction.commit();
 		} catch (HibernateException hibernateException) {
 			if (transaction != null) {
@@ -72,13 +70,13 @@ public class GestorArea {
 		}
 	}
 
-	public void borrarEmpleado(int idEmpleado) {
+	public void borrarArea(int idArea) {
 		Session session = fabrica.openSession();
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			Empleado empleado = (Empleado) session.get(Empleado.class, idEmpleado);
-			session.delete(empleado);
+			Area area = (Area) session.get(Area.class, idArea);
+			session.delete(area);
 			transaction.commit();
 		} catch (HibernateException hibernateException) {
 			if (transaction != null) {
@@ -97,15 +95,15 @@ public class GestorArea {
 			System.err.println("No se pudo crear el objeto SessionFactory." + exception);
 			throw new ExceptionInInitializerError(exception);
 		}
-		GestorEmpleados managerEmpleado = new GestorEmpleados();
+		GestorArea managerArea = new GestorArea();
 
-		int id1 = managerEmpleado.insertarEmpleado("dni1", "nombre1", "apellido1");
-		int id2 = managerEmpleado.insertarEmpleado("dni2", "nombre2", "apellido2");
-		managerEmpleado.insertarEmpleado("dni3", "nombre3", "apellido3");
-		managerEmpleado.listarEmpleados();
+		int id1 = managerArea.insertarArea("nombre1");
+		int id2 = managerArea.insertarArea("nombre2");
+		managerArea.insertarArea("nombre3");
+		managerArea.listarAreas();
 		System.out.println("----");
-		managerEmpleado.actualizarEmpleado(id1, "xxxx", "xxxxxxx", "xxxxxxxxx");
-		managerEmpleado.borrarEmpleado(id2);;
-		managerEmpleado.listarEmpleados();
+		managerArea.actualizarArea(id1, "xxxx");
+		managerArea.borrarArea(id2);;
+		managerArea.listarAreas();
 	}
 }

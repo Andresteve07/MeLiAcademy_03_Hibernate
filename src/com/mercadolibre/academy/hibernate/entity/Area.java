@@ -43,4 +43,7 @@ public class Area implements Serializable{
 		this.nombre = nombre;
 	}
 	
+	public String toString(){
+		return "[AREA - ID:"+this.id+" NOMBRE: "+this.nombre+"]";
+	}
 }
