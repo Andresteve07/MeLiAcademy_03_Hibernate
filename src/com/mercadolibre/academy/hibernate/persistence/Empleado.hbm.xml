@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+          
+<hibernate-mapping>
+	<class name="com.mercadolibre.academy.hibernate.entity.Empleado" table="empleado">
+		<id column="id_empleado" name="id" type="integer">
+			<generator class="native"></generator>
+		</id>
+		<property name="dni"/>
+		<property name="nombre" />
+		<property name="apellido" />
+	</class>          
+</hibernate-mapping>
