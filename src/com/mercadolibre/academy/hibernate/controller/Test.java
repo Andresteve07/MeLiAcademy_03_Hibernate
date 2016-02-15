@@ -58,17 +58,18 @@ public class Test {
 			correo4.setEmpleado(empleado2);
 			correos2.add(correo3);
 			correos2.add(correo4);
-			empleado1.setCorreos(correos2);
-			System.out.println("233");
+			empleado2.setCorreos(correos2);
+			System.out.println(empleado1);
 			GestorEmpleados gemp = new GestorEmpleados(fabrica);
-			System.out.println("111");
+			System.out.println(empleado2);
 			gemp.insertarEmpleado(empleado1);
-			gemp.insertarEmpleado(empleado2);
+			//gemp.insertarEmpleado(empleado2);
 			
 			
-		} catch(Throwable exception){
+		} catch(Exception exception){
 			System.err.println("No se pudo crear el objeto SessionFactory:" + exception);
-			throw new ExceptionInInitializerError(exception);
+			//throw new ExceptionInInitializerError(exception);
+			exception.printStackTrace();
 		}
 	}
 
