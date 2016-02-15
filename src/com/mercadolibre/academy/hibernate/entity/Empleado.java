@@ -1,11 +1,15 @@
 package com.mercadolibre.academy.hibernate.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
@@ -33,8 +37,41 @@ public class Empleado implements Serializable{
 	@Column(name="apellido")
 	private String apellido;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Domicilio domicilio;
+	
+	private Set<CorreoElectronico> correos;
+	
+	
+//	@OneToOne(cascade=CascadeType.ALL)
+//	private Area area;
+//	
+//	public Area getArea() {
+//		return area;
+//	}
+//
+//	public void setArea(Area area) {
+//		this.area = area;
+//	}
+
+	public Set<CorreoElectronico> getCorreos() {
+		return correos;
+	}
+
+	public void setCorreos(Set<CorreoElectronico> correos) {
+		this.correos = correos;
+	}
+
 	public Empleado(){
 		
+	}
+	
+	public Domicilio getDomicilio() {
+		return domicilio;
+	}
+	public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
 	}
 	public Empleado(int id){
 		this.id=id;
@@ -71,10 +108,14 @@ public class Empleado implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public String toString(){
-		return "[ID: "+this.id+" | "+"DNI: "+this.dni+" | "+"NOMBRE: "+this.nombre+" | "+"APELLIDO: "+this.apellido+"]";
+
+	@Override
+	public String toString() {
+		return "Empleado [id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", domicilio="
+				+ domicilio + this.correos+"]";
 	}
+	
+	
 	
 	
 }

@@ -6,8 +6,11 @@
 <hibernate-mapping>
 	<class name="com.mercadolibre.academy.hibernate.entity.Area" table="area">
 		<id column="id_area" name="id" type="integer">
-			<generator class="native"></generator>
+			<generator class="foreign">
+				<param name="property">empleado</param>
+			</generator>
 		</id>
 		<property name="nombre" />
+		<one-to-one name="empleado" cascade="all"></one-to-one>
 	</class>          
 </hibernate-mapping>

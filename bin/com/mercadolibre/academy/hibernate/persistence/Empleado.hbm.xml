@@ -6,10 +6,22 @@
 <hibernate-mapping>
 	<class name="com.mercadolibre.academy.hibernate.entity.Empleado" table="empleado">
 		<id column="id_empleado" name="id" type="integer">
-			<generator class="native"></generator>
+			<generator class="foreign">
+				<param name="property">domicilio</param>
+			</generator>
 		</id>
 		<property name="dni"/>
 		<property name="nombre" />
 		<property name="apellido" />
+		<one-to-one name="domicilio" cascade="all"></one-to-one>
+
+	<set name="correos" cascade="all">
+		<key>
+			<column name="id_empleado"></column>
+		</key>
+		<one-to-many
+			class="com.mercadolibre.academy.hibernate.entity.CorreoElectronico"/>
+	</set>
+
 	</class>          
 </hibernate-mapping>

@@ -2,10 +2,13 @@ package com.mercadolibre.academy.hibernate.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +27,16 @@ public class Area implements Serializable{
 	@Column(name="nombre")
 	private String nombre;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Empleado empleado;
+	
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
 	public Area(){
 		
 	}
@@ -42,8 +55,10 @@ public class Area implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public String toString(){
-		return "[AREA - ID:"+this.id+" NOMBRE: "+this.nombre+"]";
+	@Override
+	public String toString() {
+		return "Area [id=" + id + ", nombre=" + nombre + ", empleado=" + empleado + "]";
 	}
+	
+	
 }

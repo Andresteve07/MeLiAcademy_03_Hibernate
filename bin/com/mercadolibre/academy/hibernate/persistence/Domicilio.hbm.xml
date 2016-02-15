@@ -6,7 +6,7 @@
 <hibernate-mapping>
 	<class name="com.mercadolibre.academy.hibernate.entity.Domicilio" table="domicilio">
 		<id column="id_domicilio" name="id" type="integer">
-			<generator class="native"></generator>
+			<generator class="increment"></generator>
 		</id>
 		<property name="calle"/>
 		<property name="localidad" />

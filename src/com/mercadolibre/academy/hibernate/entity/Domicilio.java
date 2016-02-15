@@ -11,6 +11,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="domicilio")
 public class Domicilio implements Serializable{
+	@Override
+	public String toString() {
+		return "Domicilio [id=" + id + ", calle=" + calle + ", nro=" + nro + ", localidad=" + localidad + ", provincia="
+				+ provincia + ", pais=" + pais + "]";
+	}
 	/**
 	 * 
 	 */
@@ -41,6 +46,7 @@ public class Domicilio implements Serializable{
 	}
 	public Domicilio(String calle, int nro, String localidad, String provincia, String pais){
 		this.calle=calle;
+		this.nro=nro;
 		this.localidad=localidad;
 		this.provincia=provincia;
 		this.pais=pais;

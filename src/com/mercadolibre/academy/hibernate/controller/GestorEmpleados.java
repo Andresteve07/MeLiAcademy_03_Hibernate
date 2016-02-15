@@ -12,6 +12,11 @@ import com.mercadolibre.academy.hibernate.entity.Empleado;
 
 public class GestorEmpleados {
 	private static SessionFactory fabrica;
+	
+	public GestorEmpleados(SessionFactory fabrica){
+		GestorEmpleados.fabrica=fabrica;
+	}
+
 	public int insertarEmpleado(String dni, String nombre, String apellido) {
 		Session session = fabrica.openSession();
 		Transaction transaction = null;
@@ -32,6 +37,37 @@ public class GestorEmpleados {
 		return idEmpleado;
 	}
 
+	
+	public int insertarEmpleado(Empleado empleado) {
+
+		Session session = fabrica.openSession();
+		Transaction transaction = null;
+		int idEmpleado = 0;
+
+		try {
+
+			transaction = session.beginTransaction();
+			idEmpleado = (int) session.save(empleado);
+			transaction.commit();
+
+		} catch (HibernateException hibernateException) {
+			if (transaction != null) {
+				transaction.rollback();
+
+			}
+
+			hibernateException.printStackTrace();
+
+		} finally {
+
+			session.close();
+
+		}
+
+		return idEmpleado;
+
+	}
+	
 	public void listarEmpleados() {
 		Session session = fabrica.openSession();
 		Transaction transaction = null;//NO ES NECESARIA->LEER DOCS!!
@@ -99,7 +135,7 @@ public class GestorEmpleados {
 			System.err.println("No se pudo crear el objeto SessionFactory." + exception);
 			throw new ExceptionInInitializerError(exception);
 		}
-		GestorEmpleados managerEmpleado = new GestorEmpleados();
+		GestorEmpleados managerEmpleado = new GestorEmpleados(fabrica);
 
 		int id1 = managerEmpleado.insertarEmpleado("dni1", "nombre1", "apellido1");
 		int id2 = managerEmpleado.insertarEmpleado("dni2", "nombre2", "apellido2");

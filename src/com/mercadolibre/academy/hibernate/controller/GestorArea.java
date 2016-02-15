@@ -12,6 +12,11 @@ import com.mercadolibre.academy.hibernate.entity.Area;
 
 public class GestorArea {
 	private static SessionFactory fabrica;
+	
+	public GestorArea(SessionFactory fabrica){
+		GestorArea.fabrica = fabrica;
+	}
+	
 	public int insertarArea(String nombre) {
 		Session session = fabrica.openSession();
 		Transaction transaction = null;
@@ -19,6 +24,26 @@ public class GestorArea {
 		try {
 			transaction = session.beginTransaction();
 			Area area = new Area(nombre);
+			idArea = (int) session.save(area);
+			transaction.commit();
+		} catch (HibernateException hibernateException) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			hibernateException.printStackTrace();
+			System.out.println("ERROR DE ESCRITURA");
+		} finally {
+			session.close();
+		}
+		return idArea;
+	}
+	
+	public int insertarArea(Area area) {
+		Session session = fabrica.openSession();
+		Transaction transaction = null;
+		int idArea = 0;
+		try {
+			transaction = session.beginTransaction();
 			idArea = (int) session.save(area);
 			transaction.commit();
 		} catch (HibernateException hibernateException) {
@@ -98,7 +123,7 @@ public class GestorArea {
 			System.err.println("No se pudo crear el objeto SessionFactory." + exception);
 			throw new ExceptionInInitializerError(exception);
 		}
-		GestorArea managerArea = new GestorArea();
+		GestorArea managerArea = new GestorArea(fabrica);
 
 		int id1 = managerArea.insertarArea("nombre1");
 		int id2 = managerArea.insertarArea("nombre2");
