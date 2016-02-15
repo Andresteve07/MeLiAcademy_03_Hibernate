@@ -28,7 +28,7 @@ public class Area implements Serializable{
 		
 	}
 	public Area(String nombre){
-		
+		this.nombre=nombre;
 	}
 	public int getId() {
 		return id;
