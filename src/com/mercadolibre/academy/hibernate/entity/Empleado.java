@@ -43,17 +43,16 @@ public class Empleado implements Serializable{
 	
 	private Set<CorreoElectronico> correos;
 	
-	
 //	@OneToOne(cascade=CascadeType.ALL)
-//	private Area area;
-//	
-//	public Area getArea() {
-//		return area;
-//	}
-//
-//	public void setArea(Area area) {
-//		this.area = area;
-//	}
+	private Area area;
+	
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
+	}
 
 	public Set<CorreoElectronico> getCorreos() {
 		return correos;
@@ -112,7 +111,7 @@ public class Empleado implements Serializable{
 	@Override
 	public String toString() {
 		return "Empleado [id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", domicilio="
-				+ domicilio + this.correos+"]";
+				+ domicilio + this.correos+ "area=" +area.getNombre()+"]";
 	}
 	
 	

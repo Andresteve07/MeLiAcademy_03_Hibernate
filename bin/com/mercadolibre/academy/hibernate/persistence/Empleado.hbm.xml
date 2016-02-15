@@ -22,6 +22,9 @@
 		<one-to-many
 			class="com.mercadolibre.academy.hibernate.entity.CorreoElectronico"/>
 	</set>
+		<many-to-one name="area" cascade="all">
+			<column name="id_area"></column>
+		</many-to-one>
 
 	</class>          
 </hibernate-mapping>

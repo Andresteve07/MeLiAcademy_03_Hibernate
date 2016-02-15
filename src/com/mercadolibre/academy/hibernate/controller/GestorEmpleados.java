@@ -57,6 +57,7 @@ public class GestorEmpleados {
 			}
 
 			hibernateException.printStackTrace();
+			System.out.println("ALGO PASO");
 
 		} finally {
 
